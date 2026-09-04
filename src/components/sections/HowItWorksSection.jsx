@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Badge from '../ui/Badge';
 import GlassCard from '../ui/GlassCard';
 import { UploadCloud, CheckCircle2, Sliders, ShieldAlert, BarChart3, FileText, ChevronRight } from 'lucide-react';
+import { SHARED_SHAP_ATTRIBUTIONS } from '../../data/telemetryConstants';
 
 const HowItWorksSection = () => {
   const [selectedDataset, setSelectedDataset] = useState('cic_ids_2018_wed_infiltration.csv');
@@ -35,13 +36,12 @@ const HowItWorksSection = () => {
 
   const activeMitre = getMitreStage(kSteps);
 
-  const shapFeatures = [
-    { feature: 'tcp_syn_ratio', category: 'Flow', shap: 0.42, desc: 'SYN flag count preceding ACK flood' },
-    { feature: 'iat_variance', category: 'Flow', shap: 0.31, desc: 'Packet inter-arrival variance' },
-    { feature: 'dst_port_entropy', category: 'Packet', shap: 0.28, desc: 'Horizontal port scan signature' },
-    { feature: 'ttl_variance', category: 'Packet', shap: 0.19, desc: 'TTL routing hop discrepancy' },
-    { feature: 'tcp_window_mean', category: 'Packet', shap: 0.14, desc: 'Window size buffer exhaustion' },
-  ];
+  const shapFeatures = SHARED_SHAP_ATTRIBUTIONS.map((item) => ({
+    feature: item.feature,
+    category: item.category.includes('Flow') ? 'Flow' : 'Packet',
+    shap: item.impact,
+    desc: item.interpretation,
+  }));
 
   return (
     <section
@@ -203,9 +203,9 @@ const HowItWorksSection = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#A1A1AA' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <CheckCircle2 size={12} color="#27C93F" /> TCP Flags (SYN/ACK/RST)
+                <CheckCircle2 size={12} color="#27C93F" /> TCP Flags (SYN/ACK/FIN/RST/PSH/URG)
               </span>
-              <span style={{ color: '#FFFFFF' }}>[1, 1, 0, 0]</span>
+              <span style={{ color: '#FFFFFF' }}>[1, 1, 0, 0, 1, 0]</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#A1A1AA' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>

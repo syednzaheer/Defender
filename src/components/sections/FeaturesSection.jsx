@@ -3,6 +3,7 @@ import Badge from '../ui/Badge';
 import GlassCard from '../ui/GlassCard';
 import CodeTerminal from '../ui/CodeTerminal';
 import { Award, CheckCircle2, TrendingUp, AlertTriangle } from 'lucide-react';
+import { SHARED_SHAP_ATTRIBUTIONS } from '../../data/telemetryConstants';
 
 const FeaturesSection = () => {
   const benchmarkData = [
@@ -56,40 +57,17 @@ const FeaturesSection = () => {
       forecast_window_k: 5,
       predicted_mitre_stage: {
         stage: "Lateral Movement",
-        technique_id: "TA0008",
+        tactic_id: "TA0008",
         confidence: 0.874,
         kill_chain_index: 3
       },
-      shap_feature_attributions: [
-        {
-          feature: "tcp_syn_ratio",
-          category: "Flow-Level (IPFIX)",
-          shap_value: 0.421,
-          empirical_value: 0.84,
-          interpretation: "Elevated SYN-to-ACK ratio indicating port scanning precedes burst"
-        },
-        {
-          feature: "dst_port_entropy",
-          category: "Packet-Level (PCAP)",
-          shap_value: 0.312,
-          empirical_value: 3.82,
-          interpretation: "High Shannon entropy across destination ports confirms reconnaissance sweep"
-        },
-        {
-          feature: "iat_variance",
-          category: "Flow-Level (IPFIX)",
-          shap_value: 0.184,
-          empirical_value: 184.2,
-          interpretation: "Clustered packet arrivals disrupt benign Poisson traffic distribution"
-        },
-        {
-          feature: "ttl_variance",
-          category: "Packet-Level (PCAP)",
-          shap_value: 0.128,
-          empirical_value: 18.6,
-          interpretation: "Multi-hop routing variation detected across anomalous probes"
-        }
-      ],
+      shap_feature_attributions: SHARED_SHAP_ATTRIBUTIONS.map((item) => ({
+        feature: item.feature,
+        category: item.category,
+        shap_value: item.impact,
+        empirical_value: item.empiricalValue,
+        interpretation: item.interpretation,
+      })),
       causal_state_dynamics: {
         transition_probability: "P(S_t+1 = Lateral_Movement | S_t = Reconnaissance) = 0.874",
         lead_time_seconds: 48.6,

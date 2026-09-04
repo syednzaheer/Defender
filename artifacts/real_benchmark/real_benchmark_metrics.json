@@ -1,5 +1,8 @@
 {
+  "status": "superseded_by_docs/REAL_DATA_BENCHMARK.md",
+  "audit_trail_note": "This file represents an earlier single-split evaluation with default threshold=0.05. The canonical cross-day benchmark (Wednesday-train, Thursday-holdout, threshold-optimised) is in artifacts/cross_day_benchmark/cross_day_benchmark_metrics.json. Retained for historical traceability only.",
   "dataset": "CSE-CIC-IDS2018 official processed CSV + official PCAP-derived windows",
+
   "rows": 331100,
   "train_rows": 231769,
   "validation_rows": 49666,
