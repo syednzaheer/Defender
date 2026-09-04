@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zaheer-sih26153-defender-console"
+version = "1.0.0"
+description = "Offline MITRE-aware network attack forecasting demonstration for SIH26153"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "joblib>=1.3",
+  "streamlit>=1.35",
+  "plotly>=5.18"
+]
+
+[project.optional-dependencies]
+world-model = ["torch>=2.1"]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+zaheer-defender = "zaheer_sih26153.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"

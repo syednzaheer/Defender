@@ -1,0 +1,16 @@
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+.streamlit/
+.env
+.env.*
+*.pem
+*.key
+artifacts/models/*
+!artifacts/models/.gitkeep
+!artifacts/models/jahangir_world_model_demo.pt
+!artifacts/models/jahangir_world_model_demo_config.json
+.DS_Store

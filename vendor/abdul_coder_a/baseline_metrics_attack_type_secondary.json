@@ -1,0 +1,34 @@
+{
+  "split_method": "attack_type",
+  "train_rows": 1775669,
+  "test_rows": 720022,
+  "f1_score": 0.15791890040189577,
+  "precision": 0.2609355305541291,
+  "recall": 0.1132199681983451,
+  "false_positive_rate": 0.050963728401619224,
+  "confusion_matrix": {
+    "tn": 589622,
+    "fp": 31663,
+    "fn": 87558,
+    "tp": 11179
+  },
+  "feature_columns": [
+    "src_port",
+    "dst_port",
+    "protocol",
+    "tcp_flag_bitmask",
+    "syn_flag",
+    "ack_flag",
+    "fin_flag",
+    "rst_flag",
+    "psh_flag",
+    "urg_flag",
+    "bytes_per_flow",
+    "packets_per_flow",
+    "flow_duration",
+    "iat_mean",
+    "iat_variance",
+    "iat_max",
+    "bidirectional_flow_ratio"
+  ]
+}

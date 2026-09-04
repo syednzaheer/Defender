@@ -1,0 +1,7 @@
+source_port,destination_port,protocol_number,tcp_syn,tcp_ack,tcp_fin,tcp_rst,tcp_psh,tcp_urg,bytes_per_flow,packets_per_flow,flow_duration_ms,iat_mean_ms,iat_variance_ms,iat_max_ms,bidirectional_flow_ratio,ttl_mean,ttl_variance,tcp_window_mean,payload_size_mean,retransmission_count
+40000,22,6,1,0,0,1,0,0,90,2,4,3,1,8,0.1,52,2,1024,45,1
+40001,23,6,1,0,0,0,0,0,130,3,5,3,1,8,0.1,52,2,1024,45,1
+40002,24,6,1,0,0,1,0,0,170,4,6,3,1,8,0.1,52,2,1024,45,1
+40003,443,6,1,1,0,0,1,0,4800,20,900,110,70,420,0.8,61,8,64240,680,0
+40004,445,6,1,1,0,0,1,0,5600,25,1100,120,80,450,0.9,61,8,64240,720,3
+40005,445,6,1,1,0,0,1,0,6200,28,1300,125,90,480,0.9,61,8,64240,750,3

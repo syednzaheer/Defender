@@ -1,0 +1,14 @@
+{
+  "window_size": 10,
+  "k_steps": 5,
+  "hidden_size": 64,
+  "num_layers": 2,
+  "batch_size": 32,
+  "epochs": 15,
+  "early_stopping_patience": 3,
+  "learning_rate": 0.001,
+  "infiltration_loss_weight": 1.0,
+  "state_loss_weight": 1.0,
+  "pos_class_weight": 12.379310607910156,
+  "seed": 42
+}

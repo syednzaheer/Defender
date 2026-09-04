@@ -1,0 +1,48 @@
+{
+  "dataset": "CSE-CIC-IDS2018 official processed CSV + official PCAP-derived windows",
+  "rows": 331100,
+  "train_rows": 231769,
+  "validation_rows": 49666,
+  "test_rows": 49665,
+  "window_size": 10,
+  "feature_names": [
+    "source_port",
+    "destination_port",
+    "protocol_number",
+    "tcp_flag_bitmask",
+    "tcp_syn",
+    "tcp_ack",
+    "tcp_fin",
+    "tcp_rst",
+    "tcp_psh",
+    "tcp_urg",
+    "bytes_per_flow",
+    "packets_per_flow",
+    "flow_duration_ms",
+    "iat_mean_ms",
+    "iat_variance_ms",
+    "iat_max_ms",
+    "bidirectional_flow_ratio",
+    "ttl_mean",
+    "ttl_variance",
+    "tcp_window_mean",
+    "payload_size_mean",
+    "retransmission_count"
+  ],
+  "baseline_logistic_regression": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "fpr": 1.0,
+    "threshold": 0.05
+  },
+  "world_model_lstm": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "fpr": 0.13889336340206185,
+    "threshold": 0.05
+  },
+  "packet_feature_available_rows": 10681,
+  "warning": "Packet features are time-aligned from the selected official UCAP sensor capture; the processed CSV lacks source IP, so this subset is a sensor-fusion demonstration, not a complete per-flow five-tuple join."
+}
