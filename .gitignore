@@ -14,3 +14,5 @@ artifacts/models/*
 !artifacts/models/jahangir_world_model_demo.pt
 !artifacts/models/jahangir_world_model_demo_config.json
 .DS_Store
+node_modules/
+dist/

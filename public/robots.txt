@@ -1,0 +1,6 @@
+# Robots.txt for Defender Cyber Engine
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://yourdomain.com/sitemap.xml

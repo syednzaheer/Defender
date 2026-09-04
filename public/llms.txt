@@ -1,0 +1,54 @@
+# Defender — World Model Network Attack Forecasting System
+
+> Problem Statement ID: 26153  
+> Organization: National Technical Research Organisation (NTRO)  
+> Title: AI based Network Attack Forecasting from Network Traffic Data  
+> Core Paradigm: Predictive Cyber Defence via Learned State Dynamics P(S_{t+1} | S_t)
+
+## Executive Summary
+Defender is an offline-first AI system developed for NTRO Problem Statement 26153. Traditional intrusion detection evaluates network flows in isolation using static binary classification. In contrast, Defender implements a **Network World Model** that learns an internal causal simulation of how network states evolve over time windows. 
+
+Given observed traffic state $S_t$, the world model predicts the probability distribution over future states $P(S_{t+1} \vert S_t)$, enabling forward simulation $K$ steps ahead to forecast attack trajectories before compromise is completed.
+
+## Dual-Level Traffic Feature Pipeline
+The system ingests both flow-level and packet-level features drawn from open-source network traffic datasets:
+
+### 1. Flow-Level Features (NetFlow / IPFIX)
+- Source and Destination IP / Port pairs
+- TCP Flag bitmask: SYN, ACK, FIN, RST, PSH, URG
+- Protocol Number
+- Bytes transferred per flow & Packets per flow
+- Flow duration (ms)
+- Inter-Arrival Time (IAT) statistics: Mean, Variance, Max
+- Bidirectional flow ratios
+
+### 2. Packet-Level Features (PCAP-Derived)
+- Time-To-Live (TTL) mean & variance across sessions
+- TCP window size distributions
+- IP fragment flags
+- Payload size distributions
+- Port scan signatures (sequential vs. randomized access entropy)
+- Retransmission counts
+
+## World Model Architecture
+- **State Representation**: Continuous feature vectors $S_t$ or graph representations encoding active traffic flows in time window $t$.
+- **Sequence Models**: LSTM, Temporal Transformer, and Graph Neural Networks (GNN) trained on ground-truth state transition sequences.
+- **K-Step Forward Simulation**: Projects infiltration likelihood across future horizons ($K = 1 \dots 10$).
+- **MITRE ATT&CK Mapping**: Maps forecasted future states to kill-chain tactics:
+  - Reconnaissance (TA0043)
+  - Initial Access (TA0001)
+  - Lateral Movement (TA0008)
+  - Command & Control (TA0011)
+  - Exfiltration (TA0010)
+
+## Explainability & Decision Support
+- **SHAP Feature Attribution**: Quantifies exact marginal contribution of individual flags, timing statistics, and port access patterns to the forecasted risk score.
+- **Temporal Attention Distributions**: Exposes which prior time windows informed the current state transition.
+
+## Supported Datasets & Benchmarks
+- **CSE-CIC-IDS2018**: Cross-day evaluation (Wednesday train, Thursday held-out test).
+- **CTU-13**: Real-world botnet scenarios with ground-truth temporal labels.
+- **UNSW-NB15**: Multi-stage attack flows.
+- **CICIoT2023**: IoT protocol telemetry.
+- **Raw .pcap**: Direct ingestion via Scapy / PyShark offline parsing.
+- **Baseline Comparison**: Empirically validated against Logistic Regression baseline demonstrating superior F1 score and reduced False Positive Rate (FPR).
