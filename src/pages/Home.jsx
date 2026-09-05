@@ -5,15 +5,15 @@ import IntroSection from '../components/sections/IntroSection';
 import HowItWorksSection from '../components/sections/HowItWorksSection';
 import FeaturesSection from '../components/sections/FeaturesSection';
 
-const Home = () => {
+const Home = ({ onTabChange }) => {
   return (
-    <main style={{ position: 'relative', zIndex: 1, minHeight: '100vh' }}>
-      <HeroSection />
+    <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh' }}>
+      <HeroSection onTabChange={onTabChange} />
       <LogoTicker />
-      <IntroSection />
-      <HowItWorksSection />
-      <FeaturesSection />
-    </main>
+      <IntroSection onTabChange={onTabChange} />
+      <HowItWorksSection onTabChange={onTabChange} />
+      <FeaturesSection onTabChange={onTabChange} />
+    </div>
   );
 };
 

@@ -2,8 +2,13 @@ import React from 'react';
 import { X, ExternalLink, Shield } from 'lucide-react';
 import Badge from '../ui/Badge';
 
-const MobileNav = ({ isOpen, onClose }) => {
+const MobileNav = ({ isOpen, onClose, onTabChange }) => {
   if (!isOpen) return null;
+
+  const navigateTab = (tab) => {
+    if (onTabChange) onTabChange(tab);
+    onClose();
+  };
 
   return (
     <div
@@ -11,7 +16,7 @@ const MobileNav = ({ isOpen, onClose }) => {
         position: 'fixed',
         inset: 0,
         zIndex: 100,
-        backgroundColor: 'rgba(5, 5, 7, 0.95)',
+        backgroundColor: 'rgba(7, 9, 14, 0.96)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         display: 'flex',
@@ -57,82 +62,87 @@ const MobileNav = ({ isOpen, onClose }) => {
 
       {/* Nav Links */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
-        <a
-          href="#intro"
-          onClick={onClose}
+        <button
+          onClick={() => navigateTab('home')}
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: '18px',
             color: 'var(--text-primary)',
-            textDecoration: 'none',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
           }}
         >
-          Reality Check: Static vs. World Model
-        </a>
-        <a
-          href="#simulation"
-          onClick={onClose}
+          Home
+        </button>
+        <button
+          onClick={() => navigateTab('how_it_works')}
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: '18px',
             color: 'var(--text-primary)',
-            textDecoration: 'none',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
           }}
         >
-          Live PCAP/CSV Attack Forecasting
-        </a>
-        <a
-          href="#benchmarks"
-          onClick={onClose}
+          How It Works
+        </button>
+        <button
+          onClick={() => navigateTab('forecast')}
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '18px',
+            color: '#06B6D4',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+            fontWeight: 700,
+          }}
+        >
+          Run Forecast Workspace
+        </button>
+        <button
+          onClick={() => navigateTab('evidence')}
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: '18px',
             color: 'var(--text-primary)',
-            textDecoration: 'none',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
           }}
         >
-          Model Benchmark &amp; SHAP
-        </a>
-        <a
-          href="/public/llms.txt"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '18px',
-            color: 'var(--text-primary)',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-        >
-          NTRO PS 26153 Specs <ExternalLink size={16} />
-        </a>
+          Evidence &amp; Benchmark
+        </button>
       </div>
 
       {/* Bottom Status & CTA */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingTop: '20px', borderTop: '1px solid var(--border-subtle)' }}>
-        <Badge dot dotColor="#27C93F">
+        <Badge dot dotColor="#10B981">
           P(S_t+1 | S_t) DYNAMICS READY
         </Badge>
-        <a
-          href="#simulation"
-          onClick={onClose}
+        <button
+          onClick={() => navigateTab('forecast')}
           style={{
             textAlign: 'center',
-            backgroundColor: 'var(--accent-white)',
+            backgroundColor: '#06B6D4',
             color: '#000000',
             fontFamily: 'var(--font-body)',
-            fontWeight: 600,
+            fontWeight: 700,
             fontSize: '15px',
             padding: '14px',
-            borderRadius: '9999px',
-            textDecoration: 'none',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
           }}
         >
-          Run Attack Simulation
-        </a>
+          ⚡ Run Forecast
+        </button>
       </div>
     </div>
   );

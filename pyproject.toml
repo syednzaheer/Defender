@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-world-model = ["torch>=2.1"]
+world-model = ["torch>=2.1", "scapy>=2.5"]
 test = ["pytest>=8.0"]
 
 [project.scripts]

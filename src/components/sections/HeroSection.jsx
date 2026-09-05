@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Badge from '../ui/Badge';
 import { Play, FileCode, ShieldCheck, Activity, Cpu } from 'lucide-react';
 
-const HeroSection = () => {
+const HeroSection = ({ onTabChange }) => {
   const [logoError, setLogoError] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const HeroSection = () => {
         maxWidth: '1280px',
         margin: '0 auto',
         paddingTop: '120px',
-        paddingBottom: '80px',
+        paddingBottom: '60px',
         paddingLeft: '24px',
         paddingRight: '24px',
         display: 'flex',
@@ -25,26 +25,26 @@ const HeroSection = () => {
       }}
     >
       {/* Top Badge */}
-      <div style={{ marginBottom: '28px' }}>
-        <Badge dot dotColor="#27C93F">
+      <div style={{ marginBottom: '24px' }}>
+        <Badge dot dotColor="#10B981">
           NTRO PS 26153 • WORLD MODEL ATTACK FORECASTING
         </Badge>
       </div>
 
-      {/* Main Title (Strictly single h1) */}
+      {/* Main Title */}
       <h1
         style={{
           fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(2.4rem, 5.5vw, 4.2rem)',
-          fontWeight: 700,
+          fontWeight: 800,
           color: 'var(--text-primary)',
-          lineHeight: 1.15,
+          lineHeight: 1.12,
           letterSpacing: '-0.03em',
           maxWidth: '1050px',
           margin: '0 auto 20px auto',
         }}
       >
-        Predictive Cyber Defence via Network World Models
+        Predict the Attack <span style={{ color: '#06B6D4' }}>Before the Compromise</span>
       </h1>
 
       {/* Sub-Heading */}
@@ -58,54 +58,76 @@ const HeroSection = () => {
           lineHeight: 1.6,
         }}
       >
-        Ingest packet &amp; flow telemetry. Learn state-transition dynamics P(S<sub>t+1</sub> | S<sub>t</sub>). Forecast attack progression before compromise.
+        AI-powered network attack forecasting using temporal network behavior <code style={{ color: '#06B6D4' }}>P(S_{'{t+1}'} | S_t)</code>. Ingest packet &amp; flow telemetry and predict multi-step infiltration trajectories before compromise occurs.
       </p>
 
       {/* CTA Buttons */}
-      <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '48px' }}>
-        <a
-          href="#simulation"
+      <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
+        <button
+          onClick={() => onTabChange && onTabChange('forecast')}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '10px',
-            backgroundColor: 'var(--accent-white)',
+            backgroundColor: '#06B6D4',
             color: '#000000',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
+            fontWeight: 700,
             fontSize: '15px',
             padding: '12px 28px',
-            borderRadius: '9999px',
-            textDecoration: 'none',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 0 20px rgba(6, 182, 212, 0.4)',
             transition: 'transform 0.2s ease, box-shadow 0.2s ease',
           }}
           className="hero-cta-button"
         >
-          <Play size={16} fill="#000000" /> Run PCAP / CSV Simulation
-        </a>
+          <Play size={16} fill="#000000" /> Run a Forecast
+        </button>
 
-        <a
-          href="#intro"
+        <button
+          onClick={() => onTabChange && onTabChange('how_it_works')}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            backgroundColor: 'var(--surface-glass)',
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
             color: 'var(--text-primary)',
             border: '1px solid var(--border-subtle)',
-            fontFamily: 'var(--font-mono)',
+            fontFamily: 'var(--font-body)',
+            fontWeight: 600,
             fontSize: '14px',
             padding: '12px 24px',
-            borderRadius: '9999px',
-            textDecoration: 'none',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
+            borderRadius: '8px',
+            cursor: 'pointer',
             transition: 'all 0.2s ease',
           }}
           className="hero-secondary-button"
         >
-          <Cpu size={15} /> View World Model Specs
-        </a>
+          <Cpu size={15} color="#06B6D4" /> See How It Works
+        </button>
+
+        <button
+          onClick={() => onTabChange && onTabChange('evidence')}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: 'transparent',
+            color: 'var(--text-secondary)',
+            border: '1px solid var(--border-subtle)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            padding: '12px 20px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          className="hero-secondary-button"
+        >
+          <ShieldCheck size={14} /> Explore the Evidence
+        </button>
       </div>
 
       {/* Central Emblem: Centered glass hex icon container housing /logos/brand-logo.svg */}
