@@ -64,6 +64,29 @@ const HeroSection = ({ onTabChange }) => {
       {/* CTA Buttons */}
       <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
         <button
+          onClick={() => onTabChange && onTabChange('demo')}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            backgroundColor: '#10B981',
+            color: '#000000',
+            fontFamily: 'var(--font-heading)',
+            fontWeight: 700,
+            fontSize: '15px',
+            padding: '12px 28px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 0 20px rgba(16, 185, 129, 0.4)',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          }}
+          className="hero-cta-button"
+        >
+          <Play size={16} fill="#000000" /> Try the Demo
+        </button>
+
+        <button
           onClick={() => onTabChange && onTabChange('forecast')}
           style={{
             display: 'inline-flex',

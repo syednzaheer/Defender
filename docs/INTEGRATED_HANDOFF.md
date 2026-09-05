@@ -11,7 +11,7 @@ The live data path is:
 
 > CSV upload → bounded offline parsing → canonical 21-feature frame → forecast engine → K-step infiltration timeline → MITRE stage mapping → explanations and flagged flows → Streamlit dashboard.
 
-The shared feature vocabulary is defined in `src/zaheer_sih26153/integration_contract.py`. It retains Abdul’s 17 real flow-level features and reserves five packet-derived fields required by the problem statement. If packet telemetry is absent, those five fields are zero-filled and recorded as unavailable; they are never silently inferred from unrelated flow fields.
+The shared feature vocabulary is defined in `src/defender/integration_contract.py`. It retains Abdul’s 17 real flow-level features and reserves five packet-derived fields required by the problem statement. If packet telemetry is absent, those five fields are zero-filled and recorded as unavailable; they are never silently inferred from unrelated flow fields.
 
 ## Model provenance rules
 

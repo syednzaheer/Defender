@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from zaheer_sih26153.integration_contract import FLOW_FEATURES, MODEL_FEATURES, canonicalise_abdul_frame
-from zaheer_sih26153.traffic import demo_frame
-from zaheer_sih26153.world_model_adapter import forecast_with_jahangir_artifact
+from defender.integration_contract import FLOW_FEATURES, MODEL_FEATURES, canonicalise_abdul_frame
+from defender.traffic import demo_frame
+from defender.world_model_adapter import forecast_with_jahangir_artifact
 
 
 ROOT = Path(__file__).resolve().parents[1]

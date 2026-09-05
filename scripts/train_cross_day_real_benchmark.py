@@ -20,8 +20,8 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, TensorDataset
 
-from zaheer_sih26153.forecasting import STAGES
-from zaheer_sih26153.integration_contract import MODEL_FEATURES
+from defender.forecasting import STAGES
+from defender.integration_contract import MODEL_FEATURES
 from train_real_world_model import load_flow_csv, merge_packet_windows
 
 

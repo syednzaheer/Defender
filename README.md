@@ -121,11 +121,11 @@ MVP/
 ├── scripts/                    # Training, evaluation, and PR-curve calibration scripts
 ├── server/                     # Express REST API & Python subprocess bridge
 │   ├── index.js                # Express API server (Port 4000)
-│   └── bridge.py               # Python bridge invoking src/zaheer_sih26153
+│   └── bridge.py               # Python bridge invoking src/defender
 ├── src/                        # Core source code
 │   ├── components/             # React UI components & sections
 │   ├── data/                   # Shared UI constants (telemetryConstants.js)
-│   └── zaheer_sih26153/        # Core Python package (traffic, forecasting, world_model_adapter)
+│   └── defender/               # Core Python package (traffic, forecasting, world_model_adapter)
 └── tests/                      # Pytest regression suite
 ```
 

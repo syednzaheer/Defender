@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="cyberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#00FF88" />
+    </linearGradient>
+  </defs>
+  <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="none" stroke="url(#cyberGlow)" stroke-width="6" stroke-linejoin="round" />
+  <polygon points="50,18 80,33 80,67 50,82 20,67 20,33" fill="rgba(6, 182, 212, 0.12)" stroke="#06B6D4" stroke-width="2" />
+  <path d="M50 30 L50 70 M30 50 L70 50" stroke="#00FF88" stroke-width="4" stroke-linecap="round" />
+  <circle cx="50" cy="50" r="8" fill="#06B6D4" />
+</svg>

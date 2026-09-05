@@ -52,7 +52,7 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
           >
             {!logoError ? (
               <img
-                src="/logos/brand-logo.svg"
+                src="/assets/branding/logo.png"
                 alt="Defender Emblem"
                 width={36}
                 height={36}
@@ -106,7 +106,7 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
           style={{
             display: 'none',
             alignItems: 'center',
-            gap: '24px',
+            gap: '20px',
           }}
           className="desktop-nav-links"
         >
@@ -117,10 +117,10 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
             Home
           </button>
           <button
-            onClick={() => onTabChange('how_it_works')}
-            className={`nav-tab-btn ${activeTab === 'how_it_works' ? 'active' : ''}`}
+            onClick={() => onTabChange('demo')}
+            className={`nav-tab-btn ${activeTab === 'demo' ? 'active' : ''}`}
           >
-            How It Works
+            Demo Runner
           </button>
           <button
             onClick={() => onTabChange('forecast')}
@@ -129,10 +129,22 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
             Run Forecast
           </button>
           <button
+            onClick={() => onTabChange('how_it_works')}
+            className={`nav-tab-btn ${activeTab === 'how_it_works' ? 'active' : ''}`}
+          >
+            How It Works
+          </button>
+          <button
             onClick={() => onTabChange('evidence')}
             className={`nav-tab-btn ${activeTab === 'evidence' ? 'active' : ''}`}
           >
             Evidence &amp; Benchmark
+          </button>
+          <button
+            onClick={() => onTabChange('technical')}
+            className={`nav-tab-btn ${activeTab === 'technical' ? 'active' : ''}`}
+          >
+            Technical Details
           </button>
         </nav>
 

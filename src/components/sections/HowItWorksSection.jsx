@@ -428,6 +428,79 @@ const HowItWorksSection = () => {
         </GlassCard>
       </div>
 
+      {/* MITRE ATT&CK Explanation Card */}
+      <div style={{ marginTop: '40px' }}>
+        <GlassCard style={{ padding: '32px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+            <Badge icon={ShieldAlert} variant="accent">
+              TAXONOMY STANDARDS
+            </Badge>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#06B6D4' }}>
+              MITRE ATT&amp;CK FRAMEWORK MAPPING
+            </span>
+          </div>
+
+          <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 10px' }}>
+            What is MITRE ATT&amp;CK?
+          </h3>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: '0 0 24px', maxWidth: '900px' }}>
+            MITRE ATT&amp;CK is a globally accessible knowledge base of adversary tactics and techniques based on real-world observations. In Defender, predicted future network states are mapped to these tactical attack stages to provide security operators with immediately actionable intelligence.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#38BDF8' }}>TA0043</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, color: '#38BDF8' }}>Reconnaissance</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                The attacker is gathering information about target IPs, open ports, and active services.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#FBBF24' }}>TA0001</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, color: '#FBBF24' }}>Initial Access</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                The attacker is attempting to gain an entry point via exploited services or brute force.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#F87171' }}>TA0008</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, color: '#F87171' }}>Lateral Movement</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                The attacker is moving between internal systems to reach critical assets.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#EC4899' }}>TA0011</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, color: '#EC4899' }}>Command &amp; Control</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                The compromised system is communicating with external attacker infrastructure.
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#EF4444' }}>TA0010</span>
+                <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 700, color: '#EF4444' }}>Exfiltration</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                Sensitive network data is being prepared or exfiltrated out of the environment.
+              </p>
+            </div>
+          </div>
+        </GlassCard>
+      </div>
+
       <style>{`
         @media (max-width: 1024px) {
           .how-it-works-grid {

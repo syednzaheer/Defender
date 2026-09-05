@@ -11,10 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from zaheer_sih26153.traffic import read_uploaded_csv, demo_frame
-from zaheer_sih26153.forecasting import score_traffic
-from zaheer_sih26153.world_model_adapter import forecast_with_jahangir_artifact
-from zaheer_sih26153.reliability import assess_input
+from defender.traffic import read_uploaded_csv, demo_frame
+from defender.forecasting import score_traffic
+from defender.world_model_adapter import forecast_with_jahangir_artifact
+from defender.reliability import assess_input
 
 
 def handle_forecast(payload):

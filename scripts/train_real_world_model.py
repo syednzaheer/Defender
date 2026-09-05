@@ -17,7 +17,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import f1_score, precision_score, recall_score
 from sklearn.preprocessing import StandardScaler
 
-from zaheer_sih26153.integration_contract import MODEL_FEATURES
+from defender.integration_contract import MODEL_FEATURES
 
 
 def metric_dict(y_true, probabilities, threshold):

@@ -36,7 +36,7 @@ const MobileNav = ({ isOpen, onClose, onTabChange }) => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/logos/brand-logo.svg" alt="Defender" width={28} height={28} />
+          <img src="/assets/branding/logo.png" alt="Defender" width={28} height={28} onError={(e) => { e.target.style.display='none'; }} />
           <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>
             DEFENDER
           </span>
@@ -77,18 +77,19 @@ const MobileNav = ({ isOpen, onClose, onTabChange }) => {
           Home
         </button>
         <button
-          onClick={() => navigateTab('how_it_works')}
+          onClick={() => navigateTab('demo')}
           style={{
             fontFamily: 'var(--font-heading)',
             fontSize: '18px',
-            color: 'var(--text-primary)',
+            color: '#10B981',
             background: 'none',
             border: 'none',
             textAlign: 'left',
             cursor: 'pointer',
+            fontWeight: 700,
           }}
         >
-          How It Works
+          Demo Runner
         </button>
         <button
           onClick={() => navigateTab('forecast')}
@@ -103,7 +104,21 @@ const MobileNav = ({ isOpen, onClose, onTabChange }) => {
             fontWeight: 700,
           }}
         >
-          Run Forecast Workspace
+          Run Forecast
+        </button>
+        <button
+          onClick={() => navigateTab('how_it_works')}
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '18px',
+            color: 'var(--text-primary)',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+          }}
+        >
+          How It Works
         </button>
         <button
           onClick={() => navigateTab('evidence')}
@@ -118,6 +133,20 @@ const MobileNav = ({ isOpen, onClose, onTabChange }) => {
           }}
         >
           Evidence &amp; Benchmark
+        </button>
+        <button
+          onClick={() => navigateTab('technical')}
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '18px',
+            color: 'var(--text-primary)',
+            background: 'none',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer',
+          }}
+        >
+          Technical Details
         </button>
       </div>
 

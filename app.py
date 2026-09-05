@@ -12,10 +12,10 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
-from zaheer_sih26153.forecasting import score_traffic  # noqa: E402
-from zaheer_sih26153.traffic import demo_frame, read_uploaded_csv  # noqa: E402
-from zaheer_sih26153.world_model_adapter import forecast_with_jahangir_artifact  # noqa: E402
-from zaheer_sih26153.reliability import assess_input  # noqa: E402
+from defender.forecasting import score_traffic  # noqa: E402
+from defender.traffic import demo_frame, read_uploaded_csv  # noqa: E402
+from defender.world_model_adapter import forecast_with_jahangir_artifact  # noqa: E402
+from defender.reliability import assess_input  # noqa: E402
 
 st.set_page_config(page_title="Defender Console | SIH26153", page_icon="D", layout="wide", initial_sidebar_state="expanded")
 

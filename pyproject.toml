@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "zaheer-sih26153-defender-console"
+name = "defender-cyber-console"
 version = "1.0.0"
-description = "Offline MITRE-aware network attack forecasting demonstration for SIH26153"
+description = "Offline MITRE-aware network attack forecasting system for NTRO PS 26153"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -22,7 +22,8 @@ world-model = ["torch>=2.1", "scapy>=2.5"]
 test = ["pytest>=8.0"]
 
 [project.scripts]
-zaheer-defender = "zaheer_sih26153.cli:main"
+defender = "defender.cli:main"
+defender-cli = "defender.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

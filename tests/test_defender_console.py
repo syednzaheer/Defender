@@ -3,8 +3,8 @@ from io import BytesIO
 import pandas as pd
 import pytest
 
-from zaheer_sih26153.forecasting import STAGES, score_traffic
-from zaheer_sih26153.traffic import CANONICAL_FEATURES, MAX_UPLOAD_BYTES, demo_frame, read_uploaded_csv
+from defender.forecasting import STAGES, score_traffic
+from defender.traffic import CANONICAL_FEATURES, MAX_UPLOAD_BYTES, demo_frame, read_uploaded_csv
 
 
 def test_demo_produces_complete_canonical_contract():
