@@ -59,31 +59,16 @@ const Sidebar = ({ activeTab, onTabChange }) => {
             marginBottom: '20px',
           }}
         >
-          <div
+          <img
+            src="/imgs/logo.png"
+            alt="Defender Emblem"
             style={{
-              width: '38px',
-              height: '38px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: '10px',
-              backgroundColor: 'rgba(6, 182, 212, 0.1)',
-              border: '1px solid rgba(6, 182, 212, 0.2)',
+              height: '36px',
+              width: 'auto',
+              maxHeight: '36px',
+              objectFit: 'contain',
             }}
-          >
-            {!logoError ? (
-              <img
-                src="/assets/branding/logo.png"
-                alt="Defender Emblem"
-                width={30}
-                height={30}
-                onError={() => setLogoError(true)}
-                style={{ objectFit: 'contain' }}
-              />
-            ) : (
-              <Shield size={22} color="#06B6D4" />
-            )}
-          </div>
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span
               style={{

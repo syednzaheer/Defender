@@ -36,7 +36,7 @@ const MobileNav = ({ isOpen, onClose, onTabChange }) => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/assets/branding/logo.png" alt="Defender" width={28} height={28} onError={(e) => { e.target.style.display='none'; }} />
+          <img src="/imgs/logo.png" alt="Defender" width={28} height={28} onError={(e) => { e.target.style.display='none'; }} />
           <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>
             DEFENDER
           </span>

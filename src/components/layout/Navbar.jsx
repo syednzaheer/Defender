@@ -40,42 +40,16 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
             color: 'var(--text-primary)',
           }}
         >
-          <div
+          <img
+            src="/imgs/logo.png"
+            alt="Defender Emblem"
             style={{
-              width: '36px',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
+              height: '32px',
+              width: 'auto',
+              maxHeight: '32px',
+              objectFit: 'contain',
             }}
-          >
-            {!logoError ? (
-              <img
-                src="/assets/branding/logo.png"
-                alt="Defender Emblem"
-                width={36}
-                height={36}
-                onError={() => setLogoError(true)}
-                style={{ objectFit: 'contain' }}
-              />
-            ) : (
-              <div
-                className="svg-fallback-skeleton"
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(6, 182, 212, 0.15)',
-                  borderRadius: '8px',
-                }}
-              >
-                <Shield size={20} color="#06B6D4" />
-              </div>
-            )}
-          </div>
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span
               style={{
