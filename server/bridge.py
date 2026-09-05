@@ -23,10 +23,15 @@ def handle_forecast(payload):
     csv_path = payload.get("csv_path")
     use_demo = payload.get("use_demo", False) or not csv_path
 
-    if csv_path and Path(csv_path).is_file():
-        with open(csv_path, "rb") as f:
-            frame = read_uploaded_csv(f)
-        source_label = Path(csv_path).name
+    if csv_path:
+        target_path = Path(csv_path).resolve()
+        if target_path.is_file() and str(target_path).startswith(str(ROOT)):
+            with open(target_path, "rb") as f:
+                frame = read_uploaded_csv(f)
+            source_label = target_path.name
+        else:
+            frame = demo_frame()
+            source_label = "Bundled demo traffic"
     else:
         frame = demo_frame()
         source_label = "Bundled demo traffic"
@@ -40,9 +45,9 @@ def handle_forecast(payload):
         else:
             reliability_config = json.loads(config_path.read_text(encoding="utf-8"))
             result = forecast_with_jahangir_artifact(frame, model_path, config_path, steps)
-    elif model_mode == "Jahangir LSTM demo artifact":
-        model_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo.pt"
-        config_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo_config.json"
+    elif model_mode == "Demo LSTM artifact":
+        model_path = ROOT / "artifacts" / "models" / "demo_world_model.pt"
+        config_path = ROOT / "artifacts" / "models" / "demo_world_model_config.json"
         if not model_path.exists() or not config_path.exists():
             result = score_traffic(frame, steps)
         else:
@@ -77,10 +82,15 @@ def handle_forecast(payload):
 
 def handle_ingest(payload):
     csv_path = payload.get("csv_path")
-    if csv_path and Path(csv_path).is_file():
-        with open(csv_path, "rb") as f:
-            frame = read_uploaded_csv(f)
-        filename = Path(csv_path).name
+    if csv_path:
+        target_path = Path(csv_path).resolve()
+        if target_path.is_file() and str(target_path).startswith(str(ROOT)):
+            with open(target_path, "rb") as f:
+                frame = read_uploaded_csv(f)
+            filename = target_path.name
+        else:
+            frame = demo_frame()
+            filename = "demo_traffic.csv"
     else:
         frame = demo_frame()
         filename = "demo_traffic.csv"

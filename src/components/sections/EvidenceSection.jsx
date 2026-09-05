@@ -56,7 +56,7 @@ npm run server
 npm run dev
 
 # 5. Run CLI forecast demo immediately
-zaheer-defender --steps 5`;
+defender-cli --steps 5`;
 
   return (
     <div style={{ width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '40px 24px 100px' }}>

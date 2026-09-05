@@ -1,7 +1,7 @@
-"""Safe local adapter for Jahangir's LSTM world-model artifact.
+"""Safe local adapter for the PyTorch LSTM world-model artifact.
 
 The adapter intentionally distinguishes a demo artifact trained on synthetic
-features from a validated real-data model.  It never downloads weights and it
+features from a validated real-data model. It never downloads weights and it
 never deserializes arbitrary pickle files.
 """
 from __future__ import annotations
@@ -23,7 +23,7 @@ def _load_torch():
         import torch
         import torch.nn as nn
     except ImportError as exc:
-        raise RuntimeError("PyTorch is not installed; install the world-model extra to use Jahangir's adapter.") from exc
+        raise RuntimeError("PyTorch is not installed; install PyTorch to use the world-model adapter.") from exc
     return torch, nn
 
 
@@ -69,8 +69,6 @@ def _explanations(frame: pd.DataFrame, stage: str) -> pd.DataFrame:
 def _result_from_curve(frame: pd.DataFrame, curve: list[float], source: str, probabilities: Optional[np.ndarray] = None, explanations: Optional[pd.DataFrame] = None) -> ForecastResult:
     canonical, _ = canonicalise_abdul_frame(frame)
     if probabilities is None:
-        # Use the transparent stage rules only to create flagged-flow rows when
-        # the LSTM artifact exposes no per-flow calibrated score.
         probabilities = np.full(len(canonical), float(curve[0] if curve else 0.0))
     probabilities = np.clip(np.asarray(probabilities, dtype=float), 0.0, 1.0)
     stages = canonical.apply(_stage_for_row, axis=1) if len(canonical) else pd.Series(dtype=str)
@@ -86,13 +84,7 @@ def _result_from_curve(frame: pd.DataFrame, curve: list[float], source: str, pro
 
 
 def forecast_with_jahangir_artifact(frame: pd.DataFrame, model_path: str | Path, config_path: str | Path, steps: int = 5) -> ForecastResult:
-    """Run the local LSTM artifact and return Zaheer's stable ForecastResult.
-
-    The committed Jahangir artifact was trained with 16 unnamed dummy features.
-    It is therefore loaded only as a **demo-provenance model** against the first
-    16 canonical columns.  A real submission must retrain and replace it with
-    weights carrying the same schema and real-data provenance.
-    """
+    """Run the local PyTorch LSTM artifact and return a canonical ForecastResult."""
     torch, nn = _load_torch()
     import json
 
@@ -107,7 +99,7 @@ def forecast_with_jahangir_artifact(frame: pd.DataFrame, model_path: str | Path,
     if real_artifact and config.get("scaler_mean") and config.get("scaler_scale"):
         values = (values - np.asarray(config["scaler_mean"], dtype=np.float32)) / np.asarray(config["scaler_scale"], dtype=np.float32)
     if len(values) < window_size:
-        raise ValueError(f"At least {window_size} rows are required for Jahangir's world-model window.")
+        raise ValueError(f"At least {window_size} rows are required for the world-model window.")
     model = _model_class(torch, nn, len(feature_names), hidden_size, num_layers, real_artifact=real_artifact)
     state = torch.load(Path(model_path), map_location="cpu", weights_only=True)
     model.load_state_dict(state)
@@ -131,5 +123,5 @@ def forecast_with_jahangir_artifact(frame: pd.DataFrame, model_path: str | Path,
                 _, perturbed_probability = model(perturbed)
                 rows.append((feature, base_probability - float(perturbed_probability.item()), "model perturbation"))
             explanation_table = pd.DataFrame(rows, columns=["feature", "contribution", "stage"]).sort_values("contribution", ascending=False)
-    source = "Jahangir LSTM artifact — official CSE-CIC-IDS2018 cross-day provenance" if real_artifact else "Jahangir LSTM artifact — synthetic-demo provenance"
+    source = "PyTorch LSTM artifact — official CSE-CIC-IDS2018 cross-day provenance" if real_artifact else "PyTorch LSTM artifact — synthetic-demo provenance"
     return _result_from_curve(frame, curve, source, explanations=explanation_table)

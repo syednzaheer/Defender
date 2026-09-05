@@ -20,9 +20,9 @@ def test_abdul_schema_maps_to_shared_contract_without_fabricating_packet_fields(
     assert canonical.loc[0, "destination_port"] == 2.0
 
 
-def test_jahangir_artifact_returns_zaheer_forecast_contract():
-    model_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo.pt"
-    config_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo_config.json"
+def test_lstm_artifact_returns_forecast_contract():
+    model_path = ROOT / "artifacts" / "models" / "demo_world_model.pt"
+    config_path = ROOT / "artifacts" / "models" / "demo_world_model_config.json"
     result = forecast_with_jahangir_artifact(demo_frame(), model_path, config_path, steps=5)
     assert list(result.timeline.columns) == ["forecast_step", "infiltration_probability"]
     assert len(result.timeline) == 5

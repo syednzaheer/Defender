@@ -84,13 +84,54 @@ function runPythonBridge(payload) {
   });
 }
 
+function safeValidatePath(csvPath) {
+  if (!csvPath || typeof csvPath !== 'string') return null;
+  const normalized = path.normalize(csvPath);
+  const rootDir = process.cwd();
+  const resolved = path.isAbsolute(normalized)
+    ? path.resolve(normalized)
+    : path.resolve(rootDir, normalized);
+
+  // Check path traversal: resolved path MUST stay within project directory
+  if (!resolved.startsWith(rootDir)) {
+    return false;
+  }
+
+  // Check allowed extensions (.csv or .pcap)
+  const ext = path.extname(resolved).toLowerCase();
+  if (ext !== '.csv' && ext !== '.pcap') {
+    return false;
+  }
+
+  // Check file existence
+  if (!fs.existsSync(resolved) || !fs.statSync(resolved).isFile()) {
+    return false;
+  }
+
+  return resolved;
+}
+
 // POST /api/v1/ingest: Accepts CSV/PCAP metadata or file content and parses features via Python bridge
 app.post('/api/v1/ingest', async (req, res, next) => {
   try {
     const { filename, csv_path, use_demo } = req.body;
+    
+    let validatedPath = null;
+    if (csv_path) {
+      validatedPath = safeValidatePath(csv_path);
+      if (validatedPath === false) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          status: 400,
+          message: 'Invalid csv_path: path traversal or unauthorized file access detected.',
+          timestamp: new Date().toISOString(),
+        });
+      }
+    }
+
     const pythonPayload = {
       command: 'ingest',
-      csv_path: csv_path || null,
+      csv_path: validatedPath || null,
       use_demo: !!use_demo,
     };
     const result = await runPythonBridge(pythonPayload);
@@ -104,13 +145,27 @@ app.post('/api/v1/ingest', async (req, res, next) => {
 app.post('/api/v1/forecast', async (req, res, next) => {
   try {
     const { k, steps, model_mode, csv_path, use_demo } = req.body;
+
+    let validatedPath = null;
+    if (csv_path) {
+      validatedPath = safeValidatePath(csv_path);
+      if (validatedPath === false) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          status: 400,
+          message: 'Invalid csv_path: path traversal or unauthorized file access detected.',
+          timestamp: new Date().toISOString(),
+        });
+      }
+    }
+
     const forecastSteps = parseInt(steps || k || 5, 10);
     const pythonPayload = {
       command: 'forecast',
       steps: Math.min(Math.max(forecastSteps, 1), 20),
       model_mode: model_mode || 'Validated real-data LSTM artifact',
-      csv_path: csv_path || null,
-      use_demo: use_demo !== undefined ? !!use_demo : !csv_path,
+      csv_path: validatedPath || null,
+      use_demo: use_demo !== undefined ? !!use_demo : !validatedPath,
     };
     const result = await runPythonBridge(pythonPayload);
     res.status(200).json(result);

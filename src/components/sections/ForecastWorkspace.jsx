@@ -36,7 +36,7 @@ const ForecastWorkspace = ({ autoRunDemo = false }) => {
     'Executing PyTorch Temporal LSTM Model',
     'Rolling Forward K-Step Autoregressive Predictions P(S_{t+1} | S_t)',
     'Mapping MITRE ATT&CK Attack Progression',
-    'Computing Perturbation SHAP Attributions'
+    'Computing Feature Attributions (Perturbation-based)'
   ];
 
   const runForecastExecution = async (overrideMode = activeMode, overrideFile = selectedFile) => {
@@ -615,14 +615,14 @@ const ForecastWorkspace = ({ autoRunDemo = false }) => {
             </div>
           </GlassCard>
 
-          {/* Why Defender Flagged This (SHAP Feature Attribution) */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
+          {/* Why Defender Flagged This (Feature Attribution) */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
             <GlassCard style={{ padding: '24px' }}>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 6px' }}>
                 Why Defender Flagged This
               </h3>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--text-secondary)', margin: '0 0 16px' }}>
-                Perturbation-based SHAP feature attribution ($\Delta P$ sensitivity analysis on PyTorch model window).
+                Perturbation-based feature attribution ($\Delta P$ sensitivity analysis on PyTorch model window).
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

@@ -202,15 +202,20 @@ const Navbar = ({ activeTab, onTabChange, onOpenMobileNav }) => {
       </div>
 
       <style>{`
-        @media (min-width: 768px) {
+        @media (min-width: 769px) {
+          header {
+            display: none !important;
+          }
+        }
+        @media (max-width: 768px) {
           .desktop-nav-links {
-            display: flex !important;
+            display: none !important;
           }
           .desktop-status-pill {
-            display: inline-flex !important;
+            display: none !important;
           }
           .mobile-nav-toggle {
-            display: none !important;
+            display: flex !important;
           }
         }
         .nav-tab-btn {

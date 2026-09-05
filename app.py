@@ -1,4 +1,4 @@
-"""Zaheer’s SIH26153 Defender Console.
+"""Defender Console.
 
 Run with: streamlit run app.py
 The app is offline-only: it imports local Python modules and never calls a
@@ -42,8 +42,8 @@ with st.sidebar:
     steps = st.slider("Forward simulation steps", min_value=1, max_value=20, value=5)
     model_mode = st.radio(
         "Forecast engine",
-        ["Validated real-data LSTM artifact", "Transparent offline scorer", "Jahangir LSTM demo artifact"],
-        help="The validated artifact was trained on official CSE-CIC-IDS2018 Wednesday data and evaluated on Thursday data. The synthetic artifact is retained only for provenance comparison.",
+        ["Validated real-data LSTM artifact", "Transparent offline scorer", "Demo LSTM artifact"],
+        help="The validated artifact was trained on official CSE-CIC-IDS2018 Wednesday data and evaluated on Thursday data.",
     )
     st.divider()
     st.caption("Offline security posture")
@@ -68,11 +68,11 @@ try:
         import json
         reliability_config = json.loads(config_path.read_text(encoding="utf-8"))
         result = forecast_with_jahangir_artifact(frame, model_path, config_path, steps)
-    elif model_mode == "Jahangir LSTM demo artifact":
-        model_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo.pt"
-        config_path = ROOT / "artifacts" / "models" / "jahangir_world_model_demo_config.json"
+    elif model_mode == "Demo LSTM artifact":
+        model_path = ROOT / "artifacts" / "models" / "demo_world_model.pt"
+        config_path = ROOT / "artifacts" / "models" / "demo_world_model_config.json"
         if not model_path.exists() or not config_path.exists():
-            raise ValueError("The Jahangir demo artifact is not installed in artifacts/models.")
+            raise ValueError("The demo artifact is not installed in artifacts/models.")
         result = forecast_with_jahangir_artifact(frame, model_path, config_path, steps)
     else:
         result = score_traffic(frame, steps)
@@ -114,7 +114,7 @@ with st.expander("Method and integration notes"):
     st.markdown(f"""
 **Selected engine:** `{result.model_source}`.
 
-**World-model boundary:** The validated artifact connects through the shared 22-column contract and was trained on official CSE-CIC-IDS2018 Wednesday data, then evaluated on Thursday data using the same schema. Its benchmark is a cross-day public-dataset result, not a deployment guarantee. The original Jahangir artifact remains available only as a separately labelled synthetic-demo provenance path.
+**World-model boundary:** The validated artifact connects through the shared 22-column contract and was trained on official CSE-CIC-IDS2018 Wednesday data, then evaluated on Thursday data using the same schema. Its benchmark is a cross-day public-dataset result, not a deployment guarantee.
 
 **Fallback boundary:** The transparent scorer remains available for a deterministic, immediately runnable demonstration. It is not presented as a trained LSTM world model.
 

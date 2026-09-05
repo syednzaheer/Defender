@@ -61,4 +61,4 @@ def score_traffic(features: pd.DataFrame, steps: int = 5) -> ForecastResult:
     for feature, weight in stage.items():
         contributions.append((feature, float(latest.get(feature, 0) * weight), top_stage))
     explanations = pd.DataFrame(contributions, columns=["feature", "contribution", "stage"]).sort_values("contribution", ascending=False)
-    return ForecastResult(timeline, top_stage, explanations, flagged, "Zaheer transparent offline scorer")
+    return ForecastResult(timeline, top_stage, explanations, flagged, "Transparent offline scorer")

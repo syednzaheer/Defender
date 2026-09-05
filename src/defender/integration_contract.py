@@ -1,8 +1,8 @@
-"""Shared contracts for the SIH26153 three-coder integration.
+"""Shared contracts for the SIH26153 integration.
 
-This module is deliberately dependency-light.  It gives Coder A, Coder B, and
-Coder C one stable vocabulary instead of allowing each workstream to invent a
-slightly different feature name or output shape.
+This module is deliberately dependency-light. It provides one stable vocabulary
+across all subsystems instead of allowing each component to invent a slightly
+different feature name or output shape.
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 # The first 17 fields are the real CIC-IDS-2017 flow features emitted by
-# Abdul's pipeline.  The final five are optional PCAP-derived features required
+# the data pipeline. The final five are optional PCAP-derived features required
 # by the problem statement and are zero-filled only when the source genuinely
 # does not contain packet telemetry.
 FLOW_FEATURES = (
@@ -31,8 +31,8 @@ MODEL_FEATURES = FLOW_FEATURES + PACKET_FEATURES
 STAGES = ("Reconnaissance", "Initial Access", "Lateral Movement", "Command & Control", "Exfiltration")
 SCHEMA_VERSION = "sih26153-canonical-v1"
 
-# Names emitted by Abdul's data_loader.py mapped into Zaheer's canonical names.
-ABDUL_ALIASES = {
+# Flow log field aliases mapped into canonical names.
+ALIASES = {
     "src_port": "source_port", "dst_port": "destination_port", "protocol": "protocol_number",
     "tcp_flag_bitmask": "tcp_flag_bitmask", "syn_flag": "tcp_syn", "ack_flag": "tcp_ack",
     "fin_flag": "tcp_fin", "rst_flag": "tcp_rst", "psh_flag": "tcp_psh", "urg_flag": "tcp_urg",
@@ -57,13 +57,13 @@ def _series(frame: pd.DataFrame, name: str) -> pd.Series:
 
 
 def canonicalise_abdul_frame(frame: pd.DataFrame) -> tuple[pd.DataFrame, SchemaMetadata]:
-    """Convert Abdul's clean feature matrix to the 21-column shared schema.
+    """Convert a raw feature matrix to the 22-column shared schema.
 
-    Packet columns are never fabricated from flow columns.  If they are absent,
+    Packet columns are never fabricated from flow columns. If they are absent,
     they are zero-filled and recorded in metadata so the dashboard can state
     that packet telemetry was unavailable for this run.
     """
-    renamed = frame.rename(columns={k: v for k, v in ABDUL_ALIASES.items() if k in frame.columns}).copy()
+    renamed = frame.rename(columns={k: v for k, v in ALIASES.items() if k in frame.columns}).copy()
     result = pd.DataFrame(index=renamed.index)
     for name in FLOW_FEATURES:
         result[name] = _series(renamed, name)
@@ -74,7 +74,7 @@ def canonicalise_abdul_frame(frame: pd.DataFrame) -> tuple[pd.DataFrame, SchemaM
         result[name] = _series(renamed, name)
     result = result.replace([np.inf, -np.inf], np.nan).fillna(0.0)
     result = result.clip(lower=-1e12, upper=1e12).astype("float64")
-    metadata = SchemaMetadata(SCHEMA_VERSION, MODEL_FEATURES, tuple(unavailable), "Abdul Coder A canonicalized output")
+    metadata = SchemaMetadata(SCHEMA_VERSION, MODEL_FEATURES, tuple(unavailable), "Data pipeline canonicalized output")
     return result, metadata
 
 

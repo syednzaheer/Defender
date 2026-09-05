@@ -1,14 +1,14 @@
-# DEFENDER — World Model Network Attack Forecasting System
+# DEFENDER — AI-Based Network Attack Forecasting System
 
 **NTRO / SIH Problem Statement 26153:** AI-Based Network Attack Forecasting from Network Traffic Data  
-**Author / Team:** Syed Nomaan Zaheer  
-**Scope:** Real-data temporal state-transition forecasting $P(S_{t+1} \mid S_t)$, 22-feature flow/packet fusion contract, $K$-step forward infiltration simulation, MITRE ATT&CK kill-chain mapping, perturbation-based SHAP explainability, and secure offline analyst interface.
+**Architecture:** React 18 + Vite (Frontend) | Express / Node.js (API Server) | PyTorch (Temporal ML Engine)  
+**Scope:** Real-data temporal state-transition forecasting $P(S_{t+1} \mid S_t)$, 22-feature flow/packet fusion contract, $K$-step forward infiltration simulation, MITRE ATT&CK kill-chain mapping, perturbation-based feature attributions, and hardened offline analyst workspace.
 
 ---
 
-## 🚀 5-Minute Quick Start Guide for Evaluators & Judges
+## 🚀 Quick Start Guide for Evaluators & Judges
 
-Get Defender running in under 5 minutes without downloading gigabyte datasets or setting up cloud APIs.
+Get Defender running in under 5 minutes without external network dependencies.
 
 ### 1. Prerequisites
 - Python 3.10+ (Tested on Python 3.11.9)
@@ -16,20 +16,17 @@ Get Defender running in under 5 minutes without downloading gigabyte datasets or
 
 ### 2. Environment Setup & Package Installation
 ```bash
-# Clone repository and navigate to root directory
-cd MVP
-
 # Create clean Python virtual environment
 python3 -m venv venv
 source venv/bin/activate    # On Windows: venv\Scripts\activate
 
-# Upgrade pip and install Defender package with PyTorch world-model & test extras
+# Upgrade pip and install Defender package with PyTorch & test extras
 python -m pip install --upgrade pip
 pip install -e '.[world-model,test]'
 npm install
 ```
 
-### 3. Option A — Launch React + Node.js Analyst Product (Recommended)
+### 3. Launch React + Express Analyst Workspace (Recommended)
 ```bash
 # Terminal 1: Start hardened Express backend (Port 4000)
 npm run server
@@ -38,25 +35,21 @@ npm run server
 npm run dev
 ```
 Open **http://localhost:5173/** in your browser.  
-Click **[ ⚡ Run Forecast ]** $\to$ **[ Run Defender Demo ]** to execute real PyTorch model inference instantly!
+Click **[ ENTER DEFENDER ]** $\to$ **[ Run Forecast ]** $\to$ **[ USE SAMPLE DATA ]** $\to$ **[ RUN FORECAST SIMULATION ]** to execute PyTorch model inference!
 
-### 4. Option B — Launch Offline Streamlit Interface
+### 4. Secondary Offline Interfaces & Tools
 ```bash
+# Option A — Launch Streamlit offline console:
 streamlit run app.py
+
+# Option B — Command-Line (CLI) smoke test:
+defender-cli --steps 5
 ```
 
-### 5. Option C — Command-Line (CLI) Smoke Test
-```bash
-# Run CLI runner on bundled telemetry
-zaheer-defender --steps 5
-
-# Or specify a custom CSV file:
-zaheer-defender path/to/flows.csv --steps 10
-```
-
-### 6. Run Test Suite
+### 5. Run Test Suite & Build Verification
 ```bash
 pytest
+npm run build
 ```
 
 ---
@@ -69,10 +62,10 @@ Traditional Intrusion Detection Systems (IDS) ask a **static** question:
 **Defender** asks a **predictive** question:  
 > *"Given observed past network behavior $S_t$, what is the likely network state $S_{t+1}$ and infiltration progression over the next $K$ time windows?"*
 
-An intrusion is not an isolated event—it is an evolving causal process:
-$$\text{Reconnaissance } (\text{TA0043}) \longrightarrow \text{Initial Access } (\text{TA0001}) \longrightarrow \text{Lateral Movement } (\text{TA0008}) \longrightarrow \text{C2 } (\text{TA0011}) \longrightarrow \text{Exfiltration } (\text{TA0010})$$
+An intrusion is an evolving temporal process:
+$$\text{Reconnaissance } (\text{TA0043}) \longrightarrow \text{Initial Access } (\text{TA0001}) \longrightarrow \text{Lateral Movement } (\text{TA0008}) \longrightarrow \text{Command \& Control } (\text{TA0011}) \longrightarrow \text{Exfiltration } (\text{TA0010})$$
 
-Defender learns causal transition dynamics $P(S_{t+1} \mid S_t)$ to forecast attack progression **before compromise is completed**, giving security operations teams critical lead-time for preemptive isolation.
+Defender learns state transition dynamics $P(S_{t+1} \mid S_t)$ to forecast attack progression **before compromise is completed**, giving security operations teams critical lead-time for preemptive isolation.
 
 ---
 
@@ -82,7 +75,7 @@ Defender learns causal transition dynamics $P(S_{t+1} \mid S_t)$ to forecast att
 2. **Represent State ($S_t$)**: Constructs a 22-dimensional normalized state vector $S_t \in \mathbb{R}^{22}$ over timestamped sliding sequence windows ($W=10$).
 3. **Learn State Dynamics**: 2-layer PyTorch LSTM model with dual heads: (1) Linear Next-State Head $\hat{S}_{t+1}$ and (2) Sigmoid Hazard Head $P(\text{malicious})$.
 4. **Autoregressive $K$-Step Rollout**: Simulates trajectory $K$ time windows ahead by feeding predicted next state $\hat{S}_{t+1}$ back into the sequence window.
-5. **Map & Explain**: Maps predicted risk trajectories onto MITRE ATT&CK stages and computes perturbation SHAP feature attributions ($\Delta P$ per feature when zeroed out).
+5. **Map & Explain**: Maps predicted risk trajectories onto MITRE ATT&CK stages and computes perturbation-based feature attributions ($\Delta P$ per feature when zeroed out).
 
 ---
 
@@ -106,35 +99,40 @@ Defender is trained and evaluated on official public datasets from the **AWS Ope
 ## 🏗️ Repository Architecture
 
 ```
-MVP/
-├── app.py                      # Offline Streamlit dashboard (Python UI entrypoint)
+Defender/
+├── app.py                      # Offline Streamlit dashboard (secondary Python UI)
 ├── pyproject.toml              # Python package metadata & dependencies (setuptools)
 ├── package.json                # Node.js Express & React Vite dependencies
 ├── generate_pcap.py            # Scapy PCAP stream generator
 ├── artifacts/                  # Persisted model weights, configs, and metrics
 │   ├── cross_day_benchmark/    # Official CSE-CIC-IDS2018 PyTorch LSTM weights & metrics
-│   ├── models/                 # Jahangir synthetic-demo PyTorch model
+│   ├── models/                 # Demo PyTorch LSTM model weights & config
 │   ├── real_benchmark/         # Real fused index data and feature schema
 │   └── sample_data/            # Local demo CSV flow data
-├── docs/                       # Architectural handoffs & empirical benchmark reports
+├── docs/                       # Architectural specs & empirical benchmark reports
+│   └── architecture/           # System design & integration overview
 ├── public/                     # Static assets & downloadable sample_traffic.csv
 ├── scripts/                    # Training, evaluation, and PR-curve calibration scripts
 ├── server/                     # Express REST API & Python subprocess bridge
-│   ├── index.js                # Express API server (Port 4000)
+│   ├── index.js                # Express API server with path containment checks (Port 4000)
 │   └── bridge.py               # Python bridge invoking src/defender
 ├── src/                        # Core source code
-│   ├── components/             # React UI components & sections
-│   ├── data/                   # Shared UI constants (telemetryConstants.js)
+│   ├── components/             # React UI components (Sidebar, Workspace, Sections)
+│   ├── data/                   # Shared UI constants
 │   └── defender/               # Core Python package (traffic, forecasting, world_model_adapter)
+├── vendor/                     # Subsystem modules
+│   ├── data_pipeline/          # Feature extraction & preprocessing
+│   └── world_model_research/   # LSTM model research & rollout notebooks
 └── tests/                      # Pytest regression suite
 ```
 
 ---
 
-## 🔒 Security Posture
+## 🔒 Security Posture & Hardening
 
 - **100% Offline Operation**: No cloud API keys, remote inference, telemetry, or external network requests.
-- **Bounded Input Validation**: Uploads are capped at 50 MB / 500,000 rows, parsed strictly as data, and discarded after in-memory processing.
+- **Path Traversal Protection**: Backend file path inputs (`csv_path`) are strictly validated against project root containment to prevent unauthorized file access.
+- **Bounded Input Validation**: Uploads are capped at 50 MB / 500,000 rows, parsed strictly as numeric telemetry data, and discarded after in-memory processing.
 - **Safe Deserialization**: PyTorch state dictionary is loaded with `weights_only=True` from checked local file paths. No dynamic `eval` or `exec`.
 
 ---
@@ -147,7 +145,7 @@ MVP/
 - [x] Temporal state-transition learning $P(S_{t+1} \mid S_t)$ via PyTorch LSTM
 - [x] Autoregressive $K$-step forward infiltration trajectory rollout
 - [x] MITRE ATT&CK kill-chain stage mapping (Recon, Access, Lateral, C2, Exfil)
-- [x] Perturbation-based SHAP feature explainability
+- [x] Perturbation-based feature attributions
 - [x] Honest empirical benchmark vs. Logistic Regression baseline
-- [x] Working offline web interfaces (React Product Workspace + Streamlit Console)
-- [x] Automated pytest test suite (7/7 passed)
+- [x] Working offline web interface (React Product Workspace + Framer Motion + Sidebar)
+- [x] Automated pytest test suite passing
