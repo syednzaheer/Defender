@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --bg-void: #050507;
+  --bg-card: #0C0C0E;
+  --bg-card-hover: #121216;
+  --surface-glass: rgba(20, 20, 24, 0.65);
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(255, 255, 255, 0.22);
+  
+  --text-primary: #F4F4F6;
+  --text-secondary: #8A8A93;
+  --text-muted: #52525A;
+  
+  --accent-white: #FFFFFF;
+  --accent-glow: rgba(255, 255, 255, 0.12);
+  
+  --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+code, pre, kbd, samp, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Technical Badges and Pill Wrappers */
+.badge-pill,
+.technical-pill,
+.code-terminal,
+.monospaced-chip {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism Surface */
+.glass-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-panel:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Skeleton Loading for SVGs */
+.svg-fallback-skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Marquee / Ticker Animations */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 35s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* Glow Pulse Animation */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.03); }
+}
+
+.pulse-glow {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* MVP density and responsive card framing */
+@media (min-width: 1025px) {
+  .how-it-works-grid > * { min-width: 0; }
+}
+@media (max-width: 900px) {
+  .how-it-works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .dual-feature-panels > div { grid-template-columns: 1fr !important; }
+  .dual-feature-panels > div > div:last-child { padding-left: 0 !important; border-left: 0 !important; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; }
+}
+@media (max-width: 640px) {
+  .how-it-works-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Ported Defender Radar visual from the Copy without replacing Original styling. */
+.radar { position: relative; width: 260px; height: 260px; margin: 20px auto; display: grid; place-items: center; }
+.radar-large { width: min(360px, 100%); height: min(360px, 100%); }
+.radar svg { width: 100%; height: 100%; overflow: visible; }
+.radar-sweep { transform-origin: 160px 160px; animation: radar-sweep 5s linear infinite; }
+.radar-node { animation: node-pulse 2.2s ease-in-out infinite; }
+.radar-center-label { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; pointer-events: none; }
+.radar-center-label span, .radar-center-label small { font: 8px var(--font-mono, monospace); letter-spacing: .12em; color: rgba(235,248,255,.5); }
+.radar-center-label strong { font: 700 28px var(--font-heading, sans-serif); color: #e8fbff; line-height: 1.1; }
+@keyframes radar-sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes node-pulse { 0%, 100% { opacity: .68; } 50% { opacity: 1; } }
+
+/* Compact 3x3 source grid: keep the same 24px inter-card gap as the prior ticker. */
+.dataset-grid-section { width: 100%; max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; position: relative; z-index: 10; }
+.dataset-grid-kicker { margin-bottom: 20px; color: var(--text-muted); font: 11px var(--font-mono); letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.dataset-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.dataset-grid-card { min-width: 0; display: flex; align-items: center; gap: 10px; padding: 13px 15px; border: 1px solid var(--border-subtle); border-radius: 8px; background: rgba(255,255,255,.025); color: var(--text-primary); text-decoration: none; transition: border-color .18s ease, background .18s ease, transform .18s ease; }
+.dataset-grid-card:hover { border-color: rgba(103,232,249,.52); background: rgba(6,182,212,.07); transform: translateY(-2px); }
+.dataset-grid-icon { display: grid; place-items: center; flex: 0 0 auto; }
+.dataset-grid-copy { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.dataset-grid-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 600 12px var(--font-mono); }
+.dataset-grid-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); font: 10px var(--font-mono); }
+.dataset-grid-arrow { margin-left: auto; color: #67e8f9; font: 14px var(--font-mono); }
+
+/* Keep the forecast evidence dense and product-like rather than vertically stretched. */
+.forecast-workspace { padding-top: 24px !important; padding-bottom: 70px !important; }
+.forecast-header { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: center; gap: 28px; margin-bottom: 22px !important; }
+.forecast-header > .radar-card { margin: 0 !important; }
+.forecast-header .radar { width: 250px; height: 250px; }
+.forecast-card-grid { gap: 14px !important; margin-bottom: 20px !important; }
+.forecast-card-grid > div { padding: 17px !important; }
+.forecast-controls { padding: 15px 18px !important; margin-bottom: 20px !important; }
+.forecast-results { gap: 18px !important; }
+.forecast-results > div > .glass-card, .forecast-results > .glass-card { padding: 18px !important; }
+.forecast-header-copy { min-width: 0; }
+.forecast-meta-row { flex-wrap: wrap; }
+.forecast-header .radar-card { box-shadow: none !important; }
+.forecast-header .radar { width: 238px; height: 238px; margin: 4px auto; }
+.how-it-works-grid { align-items: start; }
+.how-it-works-grid > .how-step-card { height: 100% !important; min-height: 0 !important; box-sizing: border-box; }
+.how-step-card { min-height: 0 !important; box-sizing: border-box; }
+.how-step-card > div:last-child { min-height: 0; }
+.telemetry-dropzone { display: block; border: 1px dashed var(--border-glow); border-radius: 8px; padding: 12px; text-align: center; background: rgba(255,255,255,.02); margin-bottom: 12px; cursor: pointer; transition: border-color .18s ease, background .18s ease; }
+.telemetry-dropzone:hover { border-color: #06B6D4; background: rgba(6,182,212,.07); }
+.telemetry-dropzone input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.how-upload-note { margin-top: 14px; color: var(--text-muted); font: 10px/1.5 var(--font-mono); }
+.tcp-flags-value { white-space: nowrap; letter-spacing: -.06em; font-size: clamp(14px, 1.35vw, 18px) !important; }
+.how-trajectory { margin-top: 10px !important; padding-top: 7px !important; }
+.how-trajectory > div:nth-child(2) { height: 30px !important; }
+.how-attribution { min-height: 0 !important; }
+.how-attribution > div { gap: 6px !important; }
+
+@media (max-width: 900px) {
+  .dataset-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .forecast-header { grid-template-columns: 1fr; gap: 12px; }
+  .forecast-header .radar-card { max-width: 360px; width: 100%; margin: 0 auto !important; }
+  .how-it-works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 640px) {
+  .dataset-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dataset-grid-section { padding-bottom: 42px; }
+  .how-it-works-grid { grid-template-columns: 1fr !important; }
+  .forecast-meta-row { align-items: flex-start !important; flex-direction: column; gap: 6px !important; }
+}
+
+.binary-background { position: fixed; inset: 0; overflow: hidden; pointer-events: none; opacity: .16; z-index: 0; background: #05070a; }
+.binary-background span { position: absolute; top: -15%; color: #36d9ff; font: 10px/1.8 var(--font-mono); writing-mode: vertical-rl; white-space: nowrap; animation: binary-fall linear infinite; }
+@keyframes binary-fall { from { transform: translateY(-15vh); } to { transform: translateY(125vh); } }

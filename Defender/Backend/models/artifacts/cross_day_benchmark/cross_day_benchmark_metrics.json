@@ -1,0 +1,76 @@
+{
+  "dataset_train": "CSE-CIC-IDS2018 official Wednesday-28-02-2018",
+  "dataset_test": "CSE-CIC-IDS2018 official Thursday-01-03-2018",
+  "split_policy": "cross-day chronological holdout; scaler and thresholds fit on Wednesday only",
+  "feature_names": [
+    "source_port",
+    "destination_port",
+    "protocol_number",
+    "tcp_flag_bitmask",
+    "tcp_syn",
+    "tcp_ack",
+    "tcp_fin",
+    "tcp_rst",
+    "tcp_psh",
+    "tcp_urg",
+    "bytes_per_flow",
+    "packets_per_flow",
+    "flow_duration_ms",
+    "iat_mean_ms",
+    "iat_variance_ms",
+    "iat_max_ms",
+    "bidirectional_flow_ratio",
+    "ttl_mean",
+    "ttl_variance",
+    "tcp_window_mean",
+    "payload_size_mean",
+    "retransmission_count"
+  ],
+  "window_size": 10,
+  "train_rows": 613071,
+  "test_rows": 331100,
+  "train_positive_rows": 68871,
+  "test_positive_rows": 93063,
+  "packet_features_available_train_rows": 27616,
+  "packet_features_available_test_rows": 10681,
+  "logistic_regression": {
+    "f1": 0.3648587771149304,
+    "precision": 0.2673381712336646,
+    "recall": 0.5743850939686019,
+    "fpr": 0.6154295340640321,
+    "threshold": 0.49999999999999994,
+    "positives": 93063,
+    "rows": 331100
+  },
+  "temporal_world_model": {
+    "f1": 0.3491611692359322,
+    "precision": 0.24560444844680313,
+    "recall": 0.6037093151950829,
+    "fpr": 0.7250090326266878,
+    "threshold": 0.3,
+    "positives": 93063,
+    "rows": 331089
+  },
+  "epoch_losses": [
+    1.0007149009198713,
+    0.9865859141518418,
+    0.9826393775305251,
+    0.9940770807106978,
+    0.991334726305748,
+    0.9839550229063905,
+    0.9890418519029918,
+    0.9906220148026592
+  ],
+  "stages": [
+    "Reconnaissance",
+    "Initial Access",
+    "Lateral Movement",
+    "Command & Control",
+    "Exfiltration"
+  ],
+  "limitations": [
+    "The processed CICFlowMeter CSV exposes destination port but not source IP/source port; source_port is therefore an explicit unavailable field, not fabricated evidence.",
+    "Selected packet features are aligned by timestamp to an official UCAP sensor capture, not claimed to be a complete per-flow five-tuple join.",
+    "The benchmark is a cross-day public-dataset evaluation, not a deployment guarantee for an unseen enterprise network."
+  ]
+}

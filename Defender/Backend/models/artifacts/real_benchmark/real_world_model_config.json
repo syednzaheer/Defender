@@ -1,0 +1,31 @@
+{
+  "schema_version": "sih26153-canonical-v1",
+  "feature_names": [
+    "source_port",
+    "destination_port",
+    "protocol_number",
+    "tcp_flag_bitmask",
+    "tcp_syn",
+    "tcp_ack",
+    "tcp_fin",
+    "tcp_rst",
+    "tcp_psh",
+    "tcp_urg",
+    "bytes_per_flow",
+    "packets_per_flow",
+    "flow_duration_ms",
+    "iat_mean_ms",
+    "iat_variance_ms",
+    "iat_max_ms",
+    "bidirectional_flow_ratio",
+    "ttl_mean",
+    "ttl_variance",
+    "tcp_window_mean",
+    "payload_size_mean",
+    "retransmission_count"
+  ],
+  "window_size": 10,
+  "hidden_size": 64,
+  "num_layers": 2,
+  "dataset": "CSE-CIC-IDS2018 official processed CSV + official PCAP-derived windows"
+}

@@ -1,0 +1,34 @@
+{
+  "split_method": "day",
+  "train_rows": 1885850,
+  "test_rows": 609841,
+  "f1_score": 0.7028960790690665,
+  "precision": 0.8443312328488668,
+  "recall": 0.6020464088197593,
+  "false_positive_rate": 0.06298706639524602,
+  "confusion_matrix": {
+    "tn": 364558,
+    "fp": 24506,
+    "fn": 87859,
+    "tp": 132918
+  },
+  "feature_columns": [
+    "src_port",
+    "dst_port",
+    "protocol",
+    "tcp_flag_bitmask",
+    "syn_flag",
+    "ack_flag",
+    "fin_flag",
+    "rst_flag",
+    "psh_flag",
+    "urg_flag",
+    "bytes_per_flow",
+    "packets_per_flow",
+    "flow_duration",
+    "iat_mean",
+    "iat_variance",
+    "iat_max",
+    "bidirectional_flow_ratio"
+  ]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://REPLACE_WITH_YOUR_REAL_DOMAIN.example/sitemap.xml

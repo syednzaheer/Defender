@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1789048642173,
+      "tag": "0000_strange_medusa",
+      "breakpoints": true
+    }
+  ]
+}

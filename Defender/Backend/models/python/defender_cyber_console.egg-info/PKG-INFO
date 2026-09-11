@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: defender-cyber-console
+Version: 1.0.0
+Summary: Offline MITRE-aware network attack forecasting system for NTRO PS 26153
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: pandas>=2.0
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: joblib>=1.3
+Requires-Dist: streamlit>=1.35
+Requires-Dist: plotly>=5.18
+Provides-Extra: world-model
+Requires-Dist: torch>=2.1; extra == "world-model"
+Requires-Dist: scapy>=2.5; extra == "world-model"
+Provides-Extra: test
+Requires-Dist: pytest>=8.0; extra == "test"
+
+# Defender — Python ML Engine
+
+The real forecasting engine: feature extraction, the temporal (LSTM)
+world model, MITRE-stage mapping, and feature-attribution explanation.
+Called by `../../server.js` via `bridge.py` (invoked as a subprocess,
+JSON in on stdin, JSON out on stdout) -- this package is never exposed
+directly to the network, only through the Express backend.
+
+## Install
+
+```bash
+python3 -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -e '.[test,world-model]'
+```
+
+## Test
+
+```bash
+pytest
+node --test ../../../Cyberbot/test/cyper.test.js   # the chatbot's own tests, separate concern
+```
+
+## Layout
+
+- `defender/` -- the actual package (`traffic.py`, `forecasting.py`,
+  `world_model_adapter.py`, `reliability.py`, `integration_contract.py`)
+- `bridge.py` -- the stdin/stdout JSON bridge the Node backend calls
+- `scripts/` -- one-off training/evaluation scripts (not part of the
+  live request path)
+- `tests/` -- the real test suite
