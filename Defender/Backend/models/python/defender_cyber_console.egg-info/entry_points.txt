@@ -1,3 +1,0 @@
-[console_scripts]
-defender = defender.cli:main
-defender-cli = defender.cli:main

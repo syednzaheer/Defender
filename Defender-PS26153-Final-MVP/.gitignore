@@ -1,0 +1,27 @@
+node_modules/
+dist/
+build/
+.cache/
+.env
+.env.*
+!.env.example
+*.log
+.manus-logs/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Uploads
+Defender/Backend/artifacts/uploads/
+Defender/Backend/models/artifacts/uploads/
